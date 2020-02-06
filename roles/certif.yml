@@ -1,4 +1,4 @@
-- hosts:  localhost
+- hosts:  my_hosts
   become:  yes
   roles:
   - certifCrypt-roles
