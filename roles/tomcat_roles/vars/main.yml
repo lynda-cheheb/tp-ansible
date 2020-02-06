@@ -1,0 +1,8 @@
+---
+# vars file for tomcat_roles
+url_tomcat: https://www-eu.apache.org/dist/tomcat/tomcat-9/v9.0.30/bin/apache-tomcat-9.0.30.tar.gz
+tomcat_package: apache-tomcat-9.0.30
+dir_tomcat:  /opt/tomcat
+dir_archive: /usr/share
+name_service: "tomcat.service"
+content_file_tomcat_service: "{{ lookup('file', 'files/file-service-tomcat') }}" 

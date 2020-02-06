@@ -1,0 +1,38 @@
+---
+# tasks file for tomcat_roles
+- name:  create archive directory
+  file:
+    path: "{{ dir_tomcat }}"
+    state:  directory
+    mode:  0755
+- name: download tomcat server package
+  get_url:
+    url: "{{ url_tomcat }}"
+    dest: "{{ dir_tomcat }}"
+    remote_src: yes
+
+- name:  extract archive (tomcat package)
+  unarchive:
+    src:  "{{ dir_tomcat }}/{{ tomcat_package }}.tar.gz"
+    dest: "{{ dir_tomcat }}"
+    remote_src:  yes
+    extra_opts: [--strip-components=1]
+
+- name: create file tomcat service
+  file:
+    path:  /etc/systemd/system/{{ name_service }}
+    state: touch
+
+- name: create tomcat service
+  lineinfile:
+    path: /etc/systemd/system/{{ name_service }}
+    line: "{{ content_file_tomcat_service }}"
+      
+- name: daemon relod system
+  systemd:
+    daemon-reload:  yes
+- name: start tomcat services
+  systemd:
+    name: tomcat
+    state: started
+    enabled:  true
