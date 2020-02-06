@@ -1,3 +1,6 @@
 ---
 # tasks file for java-roles
-- name: install 
+- name: install java
+  yum:
+    name: java-1.8.0-openjdk-devel
+    state: present 
