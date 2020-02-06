@@ -1,0 +1,10 @@
+---
+# tasks file for decrypt_certif
+- name:  move encrypt file 
+  copy:
+    src: '{{ path_srcFile }}{{ item }}'
+    dest: certifCrypt-roles/files/{{ item }}
+  with_items:
+  - file4.txt
+  - file5.txt
+  - file6.txt

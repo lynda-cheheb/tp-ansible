@@ -1,0 +1,49 @@
+---
+# tasks file for jenkins-roles
+#installer java jdk
+- name:  install java-jdk
+  shell:
+   cmd: "sudo yum install java-1.8.0-openjdk-devel"
+- name: install git
+  shell:
+   cmd:  sudo yum install -y git
+- name:  enable the jenkins repository
+  shell:
+   cmd:  "curl -s -LO https://www-us.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gzsudo"
+- name:  add repository to our system
+  shell:
+   cmd:  "tar -xzf apache-maven-3.6.3-bin.tar.gz -C /opt/"
+- name:  export var MAVEN_HOME
+  shell:
+   cmd:  echo "'export MAVEN_HOME=/opt/apache-maven-3.6.3' > '{{ path_varEnv }}'/mvn.sh"
+- name:  export var PATH
+  shell:
+   cmd:  "echo 'export PATH=$PATH:$MAVEN_HOME/bin' >> '{{ path_varEnv }}'/mvn.sh"
+- name: 
+  shell:
+   cmd:  "curl -s -LO http://mirrors.jenkins.io/war-stable/latest/jenkins.war"
+- name: create directory to jenkins
+  shell:
+   cmd: "mkdir -p '{{ dir_jenkins }}'"
+- name:  move jenkins war in his directory
+  shell:
+   cmd: "mv jenkins.war '{{ dir_jenkins }}'/jenkins.war"
+- name: create directory user jenkins
+  shell:
+   cmd: "mkdir -p '{{ dir_userjenkins }}'/"
+- name:  create user jenkins
+  shell:
+   cmd: "useradd --system -md '{{ dir_userjenkins }}'/jenkins jenkins"
+- name:  create service jenkins
+  shell:
+   cmd: "echo -e '[Unit]\nDescription=Jenkins Daemon\nAfter=network.target\n\n[Service]\nType=simple\nEnvironment="JENKINS_HOME=/data/jenkins"\nExecStart=/usr/bin/java -jar {{ dir_jenkins }}/jenkins.war\nUser=jenkins\n\n[Install]\nWantedBy=multi-user.target' > {{ dir_jenkins-service }}/jenkins.service"
+- name: daemon-reload
+  service:
+   shell: 
+   cmb:  "systemctl daemon-reload"
+- name:  restart jenkins service
+  service:
+   cmd:  "systemctl start jenkins.service"
+- name:  enable jenkins service
+  service:  
+   cmd:  "systemctl enable jenkins.service" 

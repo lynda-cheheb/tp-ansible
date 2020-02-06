@@ -1,0 +1,6 @@
+---
+# vars file for jenkins-roles
+dir_jenkins: /usr/lib/jenkins
+dir_userjenkins: /data
+path_varEnv: /etc/profile.d
+dir_jenkins-service: /etc/systemd/system

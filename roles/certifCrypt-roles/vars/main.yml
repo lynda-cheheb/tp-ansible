@@ -1,0 +1,4 @@
+---
+# vars file for decrypt_certif
+path_srcFile:  /home/vagrant/ansible/
+

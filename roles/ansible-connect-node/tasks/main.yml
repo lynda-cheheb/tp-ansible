@@ -1,0 +1,3 @@
+---
+# tasks file for jenkins-master-node
+- name: create :
