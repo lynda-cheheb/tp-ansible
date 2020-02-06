@@ -22,12 +22,15 @@
   file:
     path:  /etc/systemd/system/{{ name_service }}
     state: touch
+- name: clean file
+  shell:
+    cmd: echo "" > /etc/systemd/system/{{ name_service }}    
 
 - name: create tomcat service
   lineinfile:
-    path: /etc/systemd/system/{{ name_service }}
-    line: "{{ content_file_tomcat_service }}"
-      
+   path: /etc/systemd/system/{{ name_service }}
+   line: "{{ content_file_tomcat_service }}"
+
 - name: daemon relod system
   systemd:
     daemon-reload:  yes
