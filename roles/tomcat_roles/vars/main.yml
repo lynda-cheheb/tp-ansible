@@ -1,6 +1,6 @@
 ---
 # vars file for tomcat_roles
-url_tomcat: https://www-eu.apache.org/dist/tomcat/tomcat-9/v9.0.30/bin/apache-tomcat-9.0.30.tar.gz
+url_tomcat: http://us.mirrors.quenda.co/apache/tomcat/tomcat-9/v9.0.31/bin/apache-tomcat-9.0.31.tar.gz
 tomcat_package: apache-tomcat-9.0.30
 dir_tomcat:  /opt/tomcat
 dir_archive: /usr/share
